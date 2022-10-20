@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itheima.mapper.UserMapper">
+    <select id="checkUser" resultType="user" parameterType="user">
+        select * from user where userid=#{userid} and password=#{password}
+    </select>
+    <select id="find" resultType="user" parameterType="user">
+        select * from user where userid=#{userid} and password=#{password}
+    </select>
+    <!--查询操作-->
+    <select id="findAll" resultType="user" parameterType="user">
+        select * from user where 1=1
+        <if test="userid!=null and userid!=''">
+            and userid like "%"#{userid}"%"
+        </if>
+    </select>
+
+    <insert id="addUser" parameterType="user">
+        insert into user values(#{userid},#{fullname},#{password},#{depId},#{telephone},#{type})
+    </insert>
+
+    <delete id="deleteUser" parameterType="user">
+        delete from user where userid=#{userid}
+    </delete>
+
+    <select id="findByidUser" resultType="user" parameterType="user">
+        select * from user where userid=#{userid}
+    </select>
+    
+    <update id="updateUser" parameterType="user">
+        update user set fullname=#{fullname},password=#{password},depId=#{depId},telephone=#{telephone} where userid=#{userid}
+    </update>
+</mapper>

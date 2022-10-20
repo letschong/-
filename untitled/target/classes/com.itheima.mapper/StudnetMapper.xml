@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itheima.mapper.StudentsMapper">
+    <select id="checkStudent" resultType="students" parameterType="students">
+        select * from student where stuNo=#{stuNo} and stuPwd=#{stuPwd}
+    </select>
+    <select id="find" resultType="students" parameterType="students">
+        select * from student where stuNo=#{stuNo} and stuPwd=#{stuPwd}
+    </select>
+
+    <!--查询操作-->
+    <select id="findAll" resultType="students" parameterType="students">
+        select * from student where 1=1
+        <if test="stuNo!=null and stuNo!=''">
+            and stuNo like "%"#{stuNo}"%"
+        </if>
+    </select>
+
+    <insert id="addStudents" parameterType="students">
+        insert into student values(#{stuNo},#{stuName},#{stuSex},#{clsId},#{stuPwd})
+    </insert>
+
+    <delete id="deleteStudents" parameterType="students">
+        delete from student where stuNo=#{stuNo}
+    </delete>
+
+    <select id="findByidStudents" resultType="students" parameterType="students">
+        select * from student where stuNo=#{stuNo}
+    </select>
+
+    <update id="updateStudents" parameterType="students">
+        update student set stuName=#{stuName},stuSex=#{stuSex},clsId=#{clsId},stuPwd=#{stuPwd} where stuNo=#{stuNo}
+    </update>
+</mapper>

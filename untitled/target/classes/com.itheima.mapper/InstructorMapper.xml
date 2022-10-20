@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itheima.mapper.InstructorMapper">
+
+    <select id="checkinstructor" resultType="instructor" parameterType="instructor">
+        select * from instructor where insNo=#{insNo} and insPwd=#{insPwd}
+    </select>
+    <select id="find" resultType="instructor" parameterType="instructor">
+        select * from instructor where insNo=#{insNo} and insPwd=#{insPwd}
+    </select>
+    <!--查询操作-->
+    <select id="findAll" resultType="instructor" parameterType="instructor">
+        select * from instructor where 1=1
+        <if test="insNo!=null and insNo!=''">
+            and insNo like "%"#{insNo}"%"
+        </if>
+    </select>
+
+    <insert id="addInstructor" parameterType="instructor">
+        insert into instructor values(#{insNo},#{insName},#{insPwd},#{depId},#{telephone})
+    </insert>
+
+    <delete id="deleteInstructor" parameterType="instructor">
+        delete from instructor where insNo=#{insNo}
+    </delete>
+
+    <select id="findByidInstructor" resultType="instructor" parameterType="instructor">
+        select * from instructor where insNo=#{insNo}
+    </select>
+
+    <update id="updateInstructor" parameterType="instructor">
+        update instructor set insName=#{insName},insPwd=#{insPwd},depId=#{depId},telephone=#{telephone} where insNo=#{insNo}
+    </update>
+</mapper>

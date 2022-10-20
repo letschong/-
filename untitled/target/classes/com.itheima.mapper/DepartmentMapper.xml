@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itheima.mapper.DepartmentMapper">
+    <!--查询操作-->
+    <select id="findAll" resultType="department" parameterType="department">
+        select * from department where 1=1
+        <if test="depId!=null and depId!=''">
+            and depId like "%"#{depId}"%"
+        </if>
+    </select>
+
+    <insert id="addDepartment" parameterType="department">
+        insert into department values(#{depId},#{depName},#{depaType})
+    </insert>
+
+    <delete id="deleteDepartment" parameterType="department">
+        delete from department where depId=#{depId}
+    </delete>
+
+    <select id="findByidDepartment" resultType="department" parameterType="department">
+        select * from department where depId=#{depId}
+    </select>
+    
+    <update id="updateDepartment" parameterType="department">
+        update department set depName=#{depName},depaType=#{depaType} where depId=#{depId}
+    </update>
+</mapper>

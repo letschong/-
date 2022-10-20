@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itheima.mapper.LeaveMapper">
+    <!--查询操作-->
+    <select id="leave_information" resultType="leave" >
+        SELECT  * from  student  NATURAL JOIN  leaves NATURAL JOIN instructor where stuNo=#{userid} and  1=1
+        <if test="stuNo!=null and stuNo!=''">
+            and stuNo like "%"#{stuNo}"%"
+        </if>
+    </select>
+
+ <insert id="addleave" parameterType="leave">
+ insert into leaves values(#{leaveNo},#{reason},#{startTime},#{endTime},#{stuNo},#{days},#{insNo},#{createTime},#{flag},#{types})
+ </insert>
+
+    <update id="updaleave" parameterType="leave">
+        update leaves set flag=#{flag} where stuNo=#{stuNo} and startTime=#{startTime}
+    </update>
+
+    <select id="auditleave_information" resultType="leave" >
+        SELECT  * from  student  NATURAL JOIN  leaves NATURAL JOIN instructor where flag=0 and  1=1
+        <if test="stuNo!=null and stuNo!=''">
+            and stuNo like "%"#{stuNo}"%"
+        </if>
+    </select>
+
+    <select id="statistics_information" resultType="leave" >
+       select * from student  NATURAL JOIN  leaves NATURAL JOIN instructor NATURAL JOIN classes WHERE clsName=#{clsName} and startTime  Between #{startTime1} And #{startTime2}
+    </select>
+
+    <select id="daoleave_information" resultType="leave" >
+        SELECT  * from  student  NATURAL JOIN  leaves NATURAL JOIN instructor where flag!=3 and  1=1
+        <if test="stuNo!=null and stuNo!=''">
+            and stuNo like "%"#{stuNo}"%"
+        </if>
+    </select>
+</mapper>

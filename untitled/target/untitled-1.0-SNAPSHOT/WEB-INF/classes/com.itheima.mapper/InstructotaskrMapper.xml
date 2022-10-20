@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itheima.mapper.InstructortaskMapper">
+    <!--查询操作-->
+    <select id="findAll" resultType="instructortask" parameterType="instructortask">
+        select * from instructortask  NATURAL JOIN classes NATURAL JOIN instructor instructor where 1=1
+        <if test="insNo!=null and insNo!=''">
+            and insNo like "%"#{insNo}"%"
+        </if>
+    </select>
+
+    <insert id="addInstructortask" parameterType="instructortask">
+        insert into instructortask values(#{insNo},#{clsId},#{startTime},#{startTerm})
+    </insert>
+
+    <delete id="deleteInstructortask" parameterType="instructortask">
+        delete from instructortask where insNo=#{insNo}
+    </delete>
+
+    <select id="findByidInstructortask" resultType="instructortask" parameterType="instructor">
+        select * from instructortask where insNo=#{insNo}
+    </select>
+
+    <update id="updateIInstructortask" parameterType="instructortask">
+        update instructortask set clsId=#{clsId},startTime=#{startTime},startTerm=#{startTerm} where insNo=#{insNo}
+    </update>
+</mapper>

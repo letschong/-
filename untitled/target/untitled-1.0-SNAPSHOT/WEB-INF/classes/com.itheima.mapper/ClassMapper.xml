@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itheima.mapper.ClassesMapper">
+    <!--查询操作-->
+    <select id="findAll" resultType="classes" parameterType="classes">
+        select * from classes where 1=1
+        <if test="clsId!=null and clsId!=''">
+            and clsId like "%"#{clsId}"%"
+        </if>
+    </select>
+
+    <insert id="addClasses" parameterType="classes">
+        insert into classes values(#{clsId},#{clsName},#{clsMajor},#{depId},#{clsGrade})
+    </insert>
+
+    <delete id="deleteClasses" parameterType="classes">
+        delete from classes where clsId=#{clsId}
+    </delete>
+
+    <select id="findByidClasses" resultType="classes" parameterType="classes">
+        select * from classes where clsId=#{clsId}
+    </select>
+
+    <update id="updateClasses" parameterType="classes">
+        update classes set clsName=#{clsName},clsMajor=#{clsMajor},depId=#{depId},clsGrade=#{clsGrade} where clsId=#{clsId}
+    </update>
+</mapper>
